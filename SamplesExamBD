@@ -18,3 +18,10 @@ FROM Książki JOIN Egzemplarze
 ON Książki.Id_książki = Egzemplarze.Id_Ksiazki
 WHERE Egzemplarze.Stan = 4
 group by Książki.Id_książki
+
+
+SELECT Autorzy.Id_autora, COUNT(Książki.Tytuł) LiczbaTytulow
+FROM Autorzy, Książki
+WHERE Autorzy.Id_autora = Książki.Id_książki
+GROUP BY Autorzy.Id_autora
+HAVING COUNT(Książki.Tytuł) = 1
