@@ -13,7 +13,8 @@ FROM Autorzy LEFT JOIN  Książki
 ON Książki.Id_Książki = Autorzy.Id_autora
 WHERE Książki.Id_książki IS NULL
 
-SELECT Książki.Id_książki, AVG(Egzemplarze.Cena) AS SredniaCenyKsiazki
+SELECT Książki.Id_książki, AVG(Egzemplarze.Cena) Sredniacena
 FROM Książki JOIN Egzemplarze
-ON Książki.Id_książki = Egzemplarze.Id_egzemplarza
-GROUP By Książki.Id_książki
+ON Książki.Id_książki = Egzemplarze.Id_Ksiazki
+WHERE Egzemplarze.Stan = 4
+group by Książki.Id_książki
