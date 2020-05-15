@@ -18,8 +18,9 @@ ON Customers.CustomerID = Orders.CustomerID
 Zadanie 3.	
 (0,5p.) Proszę wypisać wszystkie dane z tabeli [Order Details] oraz Identyfikator, nazwę i bieżącą cenę produktu (kolumny ProductID, ProductName i UnitPrice z tabeli Products).
 
-SELECT OrderID, [Order Details].ProductID, [Order Details].UnitPrice, Quantity, Products.ProductID, ProductName, Products.UnitPrice 
-FROM  [Order Details], Products
+SELECT OrderID, [Order Details].Quantity, [Order Details].Discount , Products.ProductID, ProductName, Products.UnitPrice
+FROM [Order Details] JOIN Products ON [Order Details].ProductID = Products.ProductID
+
 
 Zadanie 4.	
 (0,5p.) Proszę zmodyfikować rozwiązanie poprzedniego zadania tak, by między numerem zamówienia a datą wyświetlone były dane klienta – jego identyfikator i nazwa (pola CustomerID i CompanyName z tabeli Customers). Wymaga to złączenia trzech tabel.
