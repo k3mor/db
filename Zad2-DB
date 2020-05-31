@@ -1,23 +1,15 @@
 Zadania 2.
-Zdanie SELECT c.d. Złączenia tabel, zapytania z funkcjami agregującymi: COUNT(*), COUNT(Region), COUNT(DISTINCT Country), AVG, MIN, MAX, SUM. Proste podzapytania.
-
 
 Zadanie 1.	
-(0,5p.) Proszę wypisać numer zamówienia i datę zamówienia (OrderID i OrderDate) z tabeli z zamówieniami (Orders) oraz identyfikator klienta, jego nazwę i kraj (pola CustomerID, CompanyName, Country z tabeli Customers). Proszę połączyć tabele wykorzystując klauzulę WHERE.
-SELECT OrderID, OrderDate, Customers.CustomerID, CompanyName, Country
 FROM Orders, Customers
 WHERE Customers.CustomerID = Orders.CustomerID
 
 Zadanie 2.	
-(0,5p.) Proszę zmodyfikować poprzednie zadanie tak, by złączenie tabel było zrealizowane przy pomocy operatora JOIN w klauzuli FROM.
-
 SELECT OrderID, OrderDate,  Customers.CustomerID, CompanyName, Country 
 FROM Orders JOIN  Customers
 ON Customers.CustomerID = Orders.CustomerID
 
 Zadanie 3.	
-(0,5p.) Proszę wypisać wszystkie dane z tabeli [Order Details] oraz Identyfikator, nazwę i bieżącą cenę produktu (kolumny ProductID, ProductName i UnitPrice z tabeli Products).
-
 SELECT OrderID, [Order Details].Quantity, [Order Details].Discount , Products.ProductID, ProductName, Products.UnitPrice
 FROM [Order Details] JOIN Products ON [Order Details].ProductID = Products.ProductID
 
@@ -26,8 +18,6 @@ Zadanie 4.
 (0,5p.) Proszę zmodyfikować rozwiązanie poprzedniego zadania tak, by między numerem zamówienia a datą wyświetlone były dane klienta – jego identyfikator i nazwa (pola CustomerID i CompanyName z tabeli Customers). Wymaga to złączenia trzech tabel.
 
 Zadanie 5.	
-(0,5p.) Proszę wypisać ilu jest klientów (tabela Customers). Należy wykorzystać funkcję agregującą COUNT.
---We wszystkich trzech przypadkach poniżej to samo
 1.
 SELECT COUNT(*)
 FROM Customers
@@ -40,20 +30,16 @@ FROM Customers
 WHERE CustomerID IS NOT NULL
 
 Zadanie 6.	
-(0,5p.) Proszę zmodyfikować wyniki poprzedniego zapytania tak, by policzyć tylko klientów z Niemiec.
 SELECT COUNT(*)
 FROM Customers
 WHERE Country = N'Germany'
 
 Zadanie 7.	
-(0,5p.) Proszę zmodyfikować wyniki poprzedniego zapytania tak, by policzyć klientów z Niemiec i Austrii.
 SELECT COUNT(*)
 FROM Customers
 WHERE Country = N'Germany' OR Country = N'Austria'
 
 Zadanie 8.	
-(0,5p.) Proszę dla każdego kraju (Country) wypisać ilu mamy klientów z tego kraju. Dane są w tabeli Customers. Dane powinny być posortowane rosnąco według nazwy kraju.
-
 SELECT Country, COUNT(*)
 FROm Customers
 GROUP BY Country
@@ -65,32 +51,24 @@ FROm Customers
 GROUP BY Country
 
 Zadanie 9.	
-(0,5p.) Proszę zmodyfikować rozwiązanie poprzedniego zadania tak, by dane były posortowane malejąco według liczby klientów, a jeśli z pewnych krajów jest tyle samo klientów, to rekordy te powinny być posortowane rosnąco według nazwy kraju.
-
 SELECT Country, COUNT(CustomerID) AS Liczba
 FROm Customers
 GROUP BY Country
 Order By Liczba DESC, Country ASC
 
 Zadanie 10.	
-(0,5p.) Proszę zmodyfikować rozwiązanie poprzedniego zadania tak, by wyświetlane były tylko kraje, z których mamy więcej niż pięciu klientów.
-
 SELECT Country, COUNT(CustomerID) AS Liczba
 FROM Customers
 GROUP BY Country
 HAVING COUNT(CustomerID)>5
 
 Zadanie 11.	
-(0,5p.) Proszę wypisać, ilu mamy klientów z każdego kraju i miasta.
-
 SELECT  Country, City, COUNT(CustomerID) AS Liczba
 FROM Customers
 GROUP BY City, Country
 
 
 Zadanie 12.	
-(0,5p.) Proszę wypisać, ilu mamy klientów z każdego kraju i miasta, przy czym chcemy zliczać tylko tych klientów, którzy mają nazwę rozpoczynającą się od C lub A (nazwa klienta jest w kolumnie CompanyName)
-
 SELECT  CompanyName, Country, City, COUNT(CustomerID) AS Liczba
 FROM Customers
 GROUP BY City, Country, CompanyName
@@ -98,8 +76,6 @@ HAVING CompanyName LIKE N'C%' OR CompanyName Like N'A%'
 
 
 Zadanie 13.	
-(0,5p.) Weźmy pod uwagę tabelę Products. Proszę wypisać dla każdej kategorii (wystarczy CategoryID) ile jest w niej produktów (należy wykorzystać funkcję agregującą COUNT), jaka jest najmniejsza cena jednostkowa produktu (UnitPrice) w kategorii, największa cena jednostkowa produktu, średnia cena jednostkowa oraz ile w sumie jest jednostek towarów w magazynie (należy zsumować zawartość kolumny UnitsInStock). 
-
 --Bez zliczania jednostek towaru
 SELECT   CategoryID,
 COUNT(CategoryID) AS LiczbaProduktow,
@@ -111,7 +87,6 @@ FROM Products
 GROUP BY CategoryID
 
 Zadanie 14.	
-(0,5p.) Proszę wypisać, ile jest produktów, których cena jednostkowa zawiera się w przedziale od 20 do 30 (łącznie z 20 i 30).
 SELECT COUNT(*)
 FROM Products
 WHERE UnitPrice BETWEEN 20 AND 30
@@ -123,8 +98,6 @@ FROM Products
 WHERE UnitPrice >=20 AND UnitPrice <=30
 
 Zadanie 15.	
-(0,5p.) Proszę zmodyfikować rozwiązanie poprzedniego zadania tak, by wynik był podany dla każdej kategorii (CategoryID).
-
 SELECT ProductName, CategoryID 
 FROM Products
 WHERE UnitPrice >=20 AND UnitPrice <=30
@@ -133,8 +106,6 @@ ORDER BY CategoryID
 
 
 Zadanie 16.	
-(0,5p.) Proszę zmodyfikować rozwiązanie poprzedniego zadania tak, wyświetlone zostały dane dotyczące tylko tych kategorii, w których średnia cena jednostkowa jest większa niż 25.
-
 SELECT   CategoryID,
 AVG(UnitPrice) AS ŚredniaCena
 FROM Products
@@ -142,8 +113,6 @@ GROUP BY CategoryID
 HAVING AVG(UnitPrice)>25
 
 Zadanie 17.	
-(Zadanie niepunktowane) Proszę wypisać wszystkich klientów, którzy nigdy jeszcze nic nie zamawiali. Klient, który nic nie zamawiał to taki klient, którego identyfikatora nie ma na żadnym zamówieniu w tabeli Orders.  Chcemy wyświetlić tylko ich identyfikatory i nazwy (CustomerID oraz CompanyName w tabeli Customers).
-Proszę podać dwa rozwiązania – jedno z LEFT JOIN, drugie z podzapytaniem.
 
 
 
